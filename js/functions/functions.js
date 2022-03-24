@@ -9,7 +9,7 @@ function checkInputLength(element) {
         showStatusMessage();
     }
 }
-
+const statusWindow = document.querySelector(".status");
 function showStatusMessage(isError, msg) {
     if (isError == undefined) {
         // console.log("")
