@@ -47,6 +47,6 @@ function checkForVictory() {
     const filledFields = document.querySelectorAll(".gametable__box__table input.success:not([disabled])").length;
     if (totalFields - fieldsToNotFill == filledFields) {
         showStatusMessage(false, "Congratulations! You nailed it!");
-        // 
+        // Do more than just show the status msg? 
     };
 }

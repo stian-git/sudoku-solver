@@ -28,3 +28,31 @@ function showStatusMessage(isError, msg) {
         }, 5000);
     }
 }
+const gameTable = document.querySelector(".gametable");
+let storage = window.localStorage;
+
+function rotateGameTable() {
+    // if (!storage.getItem("gameRotation")) {
+    //     storage.setItem("gameRotation","90");
+    // } else {
+        
+        switch (storage.getItem("gameRotation")) {
+            case "90":
+                storage.setItem("gameRotation","180")
+                break;
+            case "180":
+                storage.setItem("gameRotation","270")
+                break;
+            case "270":
+                storage.setItem("gameRotation","0")
+                break;
+            default:
+                storage.setItem("gameRotation","90");
+                break;
+        
+    }
+    gameTable.style.transform = `rotate(${storage.getItem("gameRotation")}deg)`;
+    allInputs.forEach((e) => {
+        e.style.transform = `rotate(-${storage.getItem("gameRotation")}deg)`;
+    });
+}

@@ -25,8 +25,9 @@ main {
 }
 
 .gametable__box__table input {
-    width: 20px;
-    height: 20px;
+    width: inherit;
+    height: inherit;
+    padding: 0;
     margin: 0;
     -moz-appearance: textfield;
     text-align: center;
@@ -50,6 +51,8 @@ main {
 
 .gametable__box__table td {
     padding: 0;
+    height: 30px;
+    width: 30px;
 }
 
 .status {
