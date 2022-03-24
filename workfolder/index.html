@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Sudoku Solver</title>
+        <!-- <link rel="stylesheet" href="style/style.css" /> -->
+        <link rel="stylesheet" href="style/newstyles.css" />
+    </head>
+    <body>
+        <header>
+            <h1>Sudoku Solver</h1>
+        </header>
+        <main>
+            <div class="gametable">
+                <div class="gametable__box gametable__box__row_1 gametable__box_column_1 gametable__box_1">
+                    <table class="gametable__box__table">
+                        <tr class="tablerow tablerow1">
+                            <td><input type="number" name="" id="r1c1" class="box1 boxrow1 boxcol1 tablerow1 tablecol1" /></td>
+                            <td><input type="number" name="" id="r1c2" class="box1 boxrow1 boxcol2 tablerow1 tablecol2" /></td>
+                            <td><input type="number" name="" id="r1c3" class="box1 boxrow1 boxcol3 tablerow1 tablecol3" /></td>
+                        </tr>
+                        <tr class="tablerow tablerow2">
+                            <td><input type="number" name="" id="r2c1" class="box1 boxrow2 boxcol1 tablerow2 tablecol1" /></td>
+                            <td><input type="number" name="" id="r2c2" class="box1 boxrow2 boxcol2 tablerow2 tablecol2" /></td>
+                            <td><input type="number" name="" id="r2c3" class="box1 boxrow2 boxcol3 tablerow2 tablecol3" /></td>
+                        </tr>
+                        <tr class="tablerow tablerow3">
+                            <td><input type="number" name="" id="r3c1" class="box1 boxrow3 boxcol1 tablerow3 tablecol1" /></td>
+                            <td><input type="number" name="" id="r3c2" class="box1 boxrow3 boxcol2 tablerow3 tablecol2" /></td>
+                            <td><input type="number" name="" id="r3c3" class="box1 boxrow3 boxcol3 tablerow3 tablecol3" /></td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="gametable__box gametable__box__row_1 gametable__box_column_2 gametable__box_2">
+                    <table class="gametable__box__table">
+                        <tr class="tablerow tablerow1">
+                            <td><input type="number" name="" id="r1c4" class="box2 boxrow1 boxcol1 tablerow1 tablecol4" /></td>
+                            <td><input type="number" name="" id="r1c5" class="box2 boxrow1 boxcol2 tablerow1 tablecol5" /></td>
+                            <td><input type="number" name="" id="r1c6" class="box2 boxrow1 boxcol3 tablerow1 tablecol6" /></td>
+                        </tr>
+                        <tr class="tablerow tablerow2">
+                            <td><input type="number" name="" id="r2c4" class="box2 boxrow2 boxcol1 tablerow2 tablecol4" /></td>
+                            <td><input type="number" name="" id="r2c5" class="box2 boxrow2 boxcol2 tablerow2 tablecol5" /></td>
+                            <td><input type="number" name="" id="r2c6" class="box2 boxrow2 boxcol3 tablerow2 tablecol6" /></td>
+                        </tr>
+                        <tr class="tablerow tablerow3">
+                            <td><input type="number" name="" id="r3c4" class="box2 boxrow3 boxcol1 tablerow3 tablecol4" /></td>
+                            <td><input type="number" name="" id="r3c5" class="box2 boxrow3 boxcol2 tablerow3 tablecol5" /></td>
+                            <td><input type="number" name="" id="r3c6" class="box2 boxrow3 boxcol3 tablerow3 tablecol6" /></td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="gametable__box gametable__box__row_1 gametable__box_column_3 gametable__box_3">
+                    <table class="gametable__box__table">
+                        <tr class="tablerow tablerow1">
+                            <td><input type="number" name="" id="r1c7" class="box3 boxrow1 boxcol1 tablerow1 tablecol7" /></td>
+                            <td><input type="number" name="" id="r1c8" class="box3 boxrow1 boxcol2 tablerow1 tablecol8" /></td>
+                            <td><input type="number" name="" id="r1c9" class="box3 boxrow1 boxcol3 tablerow1 tablecol9" /></td>
+                        </tr>
+                        <tr class="tablerow tablerow2">
+                            <td><input type="number" name="" id="r2c7" class="box3 boxrow2 boxcol1 tablerow2 tablecol7" /></td>
+                            <td><input type="number" name="" id="r2c8" class="box3 boxrow2 boxcol2 tablerow2 tablecol8" /></td>
+                            <td><input type="number" name="" id="r2c9" class="box3 boxrow2 boxcol3 tablerow2 tablecol9" /></td>
+                        </tr>
+                        <tr class="tablerow tablerow3">
+                            <td><input type="number" name="" id="r3c7" class="box3 boxrow3 boxcol1 tablerow3 tablecol7" /></td>
+                            <td><input type="number" name="" id="r3c8" class="box3 boxrow3 boxcol2 tablerow3 tablecol8" /></td>
+                            <td><input type="number" name="" id="r3c9" class="box3 boxrow3 boxcol3 tablerow3 tablecol9" /></td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="gametable__box gametable__box__row_2 gametable__box_column_1 gametable__box_4">
+                    <table class="gametable__box__table">
+                        <tr class="tablerow tablerow1">
+                            <td><input type="number" name="" id="r4c1" class="box4 boxrow1 boxcol1 tablerow4 tablecol1" /></td>
+                            <td><input type="number" name="" id="r4c2" class="box4 boxrow1 boxcol2 tablerow4 tablecol2" /></td>
+                            <td><input type="number" name="" id="r4c3" class="box4 boxrow1 boxcol3 tablerow4 tablecol3" /></td>
+                        </tr>
+                        <tr class="tablerow tablerow2">
+                            <td><input type="number" name="" id="r5c1" class="box4 boxrow2 boxcol1 tablerow5 tablecol1" /></td>
+                            <td><input type="number" name="" id="r5c2" class="box4 boxrow2 boxcol2 tablerow5 tablecol2" /></td>
+                            <td><input type="number" name="" id="r5c3" class="box4 boxrow2 boxcol3 tablerow5 tablecol3" /></td>
+                        </tr>
+                        <tr class="tablerow tablerow3">
+                            <td><input type="number" name="" id="r6c1" class="box4 boxrow3 boxcol1 tablerow6 tablecol1" /></td>
+                            <td><input type="number" name="" id="r6c2" class="box4 boxrow3 boxcol2 tablerow6 tablecol2" /></td>
+                            <td><input type="number" name="" id="r6c3" class="box4 boxrow3 boxcol3 tablerow6 tablecol3" /></td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="gametable__box gametable__box__row_2 gametable__box_column_2 gametable__box_5">
+                    <table class="gametable__box__table">
+                        <tr class="tablerow tablerow1">
+                            <td><input type="number" name="" id="r4c4" class="box5 boxrow1 boxcol1 tablerow4 tablecol4" /></td>
+                            <td><input type="number" name="" id="r4c5" class="box5 boxrow1 boxcol2 tablerow4 tablecol5" /></td>
+                            <td><input type="number" name="" id="r4c6" class="box5 boxrow1 boxcol3 tablerow4 tablecol6" /></td>
+                        </tr>
+                        <tr class="tablerow tablerow2">
+                            <td><input type="number" name="" id="r5c4" class="box5 boxrow2 boxcol1 tablerow5 tablecol4" /></td>
+                            <td><input type="number" name="" id="r5c5" class="box5 boxrow2 boxcol2 tablerow5 tablecol5" /></td>
+                            <td><input type="number" name="" id="r5c6" class="box5 boxrow2 boxcol3 tablerow5 tablecol6" /></td>
+                        </tr>
+                        <tr class="tablerow tablerow3">
+                            <td><input type="number" name="" id="r6c4" class="box5 boxrow3 boxcol1 tablerow6 tablecol4" /></td>
+                            <td><input type="number" name="" id="r6c5" class="box5 boxrow3 boxcol2 tablerow6 tablecol5" /></td>
+                            <td><input type="number" name="" id="r6c6" class="box5 boxrow3 boxcol3 tablerow6 tablecol6" /></td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="gametable__box gametable__box__row_2 gametable__box_column_3 gametable__box_6">
+                    <table class="gametable__box__table">
+                        <tr class="tablerow tablerow1">
+                            <td><input type="number" name="" id="r4c7" class="box6 boxrow1 boxcol1 tablerow4 tablecol7" /></td>
+                            <td><input type="number" name="" id="r4c8" class="box6 boxrow1 boxcol2 tablerow4 tablecol8" /></td>
+                            <td><input type="number" name="" id="r4c9" class="box6 boxrow1 boxcol3 tablerow4 tablecol9" /></td>
+                        </tr>
+                        <tr class="tablerow tablerow2">
+                            <td><input type="number" name="" id="r5c7" class="box6 boxrow2 boxcol1 tablerow5 tablecol7" /></td>
+                            <td><input type="number" name="" id="r5c8" class="box6 boxrow2 boxcol2 tablerow5 tablecol8" /></td>
+                            <td><input type="number" name="" id="r5c9" class="box6 boxrow2 boxcol3 tablerow5 tablecol9" /></td>
+                        </tr>
+                        <tr class="tablerow tablerow3">
+                            <td><input type="number" name="" id="r6c7" class="box6 boxrow3 boxcol1 tablerow6 tablecol7" /></td>
+                            <td><input type="number" name="" id="r6c8" class="box6 boxrow3 boxcol2 tablerow6 tablecol8" /></td>
+                            <td><input type="number" name="" id="r6c9" class="box6 boxrow3 boxcol3 tablerow6 tablecol9" /></td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="gametable__box gametable__box__row_3 gametable__box_column_1 gametable__box_7">
+                    <table class="gametable__box__table">
+                        <tr class="tablerow tablerow1">
+                            <td><input type="number" name="" id="r7c1" class="box7 boxrow1 boxcol1 tablerow7 tablecol1" /></td>
+                            <td><input type="number" name="" id="r7c2" class="box7 boxrow1 boxcol2 tablerow7 tablecol2" /></td>
+                            <td><input type="number" name="" id="r7c3" class="box7 boxrow1 boxcol3 tablerow7 tablecol3" /></td>
+                        </tr>
+                        <tr class="tablerow tablerow2">
+                            <td><input type="number" name="" id="r8c1" class="box7 boxrow2 boxcol1 tablerow8 tablecol1" /></td>
+                            <td><input type="number" name="" id="r8c2" class="box7 boxrow2 boxcol2 tablerow8 tablecol2" /></td>
+                            <td><input type="number" name="" id="r8c3" class="box7 boxrow2 boxcol3 tablerow8 tablecol3" /></td>
+                        </tr>
+                        <tr class="tablerow tablerow3">
+                            <td><input type="number" name="" id="r9c1" class="box7 boxrow3 boxcol1 tablerow9 tablecol1" /></td>
+                            <td><input type="number" name="" id="r9c2" class="box7 boxrow3 boxcol2 tablerow9 tablecol2" /></td>
+                            <td><input type="number" name="" id="r9c3" class="box7 boxrow3 boxcol3 tablerow9 tablecol3" /></td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="gametable__box gametable__box__row_3 gametable__box_column_2 gametable__box_8">
+                    <table class="gametable__box__table">
+                        <tr class="tablerow tablerow1">
+                            <td><input type="number" name="" id="r7c4" class="box8 boxrow1 boxcol1 tablerow7 tablecol4" /></td>
+                            <td><input type="number" name="" id="r7c5" class="box8 boxrow1 boxcol2 tablerow7 tablecol5" /></td>
+                            <td><input type="number" name="" id="r7c6" class="box8 boxrow1 boxcol3 tablerow7 tablecol6" /></td>
+                        </tr>
+                        <tr class="tablerow tablerow2">
+                            <td><input type="number" name="" id="r8c4" class="box8 boxrow2 boxcol1 tablerow8 tablecol4" /></td>
+                            <td><input type="number" name="" id="r8c5" class="box8 boxrow2 boxcol2 tablerow8 tablecol5" /></td>
+                            <td><input type="number" name="" id="r8c6" class="box8 boxrow2 boxcol3 tablerow8 tablecol6" /></td>
+                        </tr>
+                        <tr class="tablerow tablerow3">
+                            <td><input type="number" name="" id="r9c4" class="box8 boxrow3 boxcol1 tablerow9 tablecol4" /></td>
+                            <td><input type="number" name="" id="r9c5" class="box8 boxrow3 boxcol2 tablerow9 tablecol5" /></td>
+                            <td><input type="number" name="" id="r9c6" class="box8 boxrow3 boxcol3 tablerow9 tablecol6" /></td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="gametable__box gametable__box__row_3 gametable__box_column_3 gametable__box_9">
+                    <table class="gametable__box__table">
+                        <tr class="tablerow tablerow1">
+                            <td><input type="number" name="" id="r7c7" class="box9 boxrow1 boxcol1 tablerow7 tablecol7" /></td>
+                            <td><input type="number" name="" id="r7c8" class="box9 boxrow1 boxcol2 tablerow7 tablecol8" /></td>
+                            <td><input type="number" name="" id="r7c9" class="box9 boxrow1 boxcol3 tablerow7 tablecol9" /></td>
+                        </tr>
+                        <tr class="tablerow tablerow2">
+                            <td><input type="number" name="" id="r8c7" class="box9 boxrow2 boxcol1 tablerow8 tablecol7" /></td>
+                            <td><input type="number" name="" id="r8c8" class="box9 boxrow2 boxcol2 tablerow8 tablecol8" /></td>
+                            <td><input type="number" name="" id="r8c9" class="box9 boxrow2 boxcol3 tablerow8 tablecol9" /></td>
+                        </tr>
+                        <tr class="tablerow tablerow3">
+                            <td><input type="number" name="" id="r9c7" class="box9 boxrow3 boxcol1 tablerow9 tablecol7" /></td>
+                            <td><input type="number" name="" id="r9c8" class="box9 boxrow3 boxcol2 tablerow9 tablecol8" /></td>
+                            <td><input type="number" name="" id="r9c9" class="box9 boxrow3 boxcol3 tablerow9 tablecol9" /></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <!-- <div class="gametable">
+                <input type="number" name="" id="" />
+                <input type="number" name="" id="" />
+                <input type="number" name="" id="" />
+                <input type="number" name="" id="" />
+                <input type="number" name="" id="" />
+                <input type="number" name="" id="" />
+                <input type="number" name="" id="" />
+                <input type="number" name="" id="" />
+                <input type="number" name="" id="" />
+           
+                <input type="number" name="" id="" class="gametable__linebreak" />
+                <input type="number" name="" id="" />
+                <input type="number" name="" id="" />
+                <input type="number" name="" id="" />
+                <input type="number" name="" id="" />
+                <input type="number" name="" id="" />
+                <input type="number" name="" id="" />
+                <input type="number" name="" id="" />
+                <input type="number" name="" id="" />
+              
+                <input type="number" name="" id="" class="gametable__linebreak" />
+                <input type="number" name="" id="" />
+                <input type="number" name="" id="" />
+                <input type="number" name="" id="" />
+                <input type="number" name="" id="" />
+                <input type="number" name="" id="" />
+                <input type="number" name="" id="" />
+                <input type="number" name="" id="" />
+                <input type="number" name="" id="" />
+       
+                <input type="number" name="" id="" class="gametable__linebreak" />
+                <input type="number" name="" id="" />
+                <input type="number" name="" id="" />
+                <input type="number" name="" id="" />
+                <input type="number" name="" id="" />
+                <input type="number" name="" id="" />
+                <input type="number" name="" id="" />
+                <input type="number" name="" id="" />
+                <input type="number" name="" id="" />
+ 
+                <input type="number" name="" id="" class="gametable__linebreak" />
+                <input type="number" name="" id="" />
+                <input type="number" name="" id="" />
+                <input type="number" name="" id="" />
+                <input type="number" name="" id="" />
+                <input type="number" name="" id="" />
+                <input type="number" name="" id="" />
+                <input type="number" name="" id="" />
+                <input type="number" name="" id="" />
+     
+                <input type="number" name="" id="" class="gametable__linebreak" />
+                <input type="number" name="" id="" />
+                <input type="number" name="" id="" />
+                <input type="number" name="" id="" />
+                <input type="number" name="" id="" />
+                <input type="number" name="" id="" />
+                <input type="number" name="" id="" />
+                <input type="number" name="" id="" />
+                <input type="number" name="" id="" />
+
+                <input type="number" name="" id="" class="gametable__linebreak" />
+                <input type="number" name="" id="" />
+                <input type="number" name="" id="" />
+                <input type="number" name="" id="" />
+                <input type="number" name="" id="" />
+                <input type="number" name="" id="" />
+                <input type="number" name="" id="" />
+                <input type="number" name="" id="" />
+                <input type="number" name="" id="" />
+   
+                <input type="number" name="" id="" class="gametable__linebreak" />
+                <input type="number" name="" id="" />
+                <input type="number" name="" id="" />
+                <input type="number" name="" id="" />
+                <input type="number" name="" id="" />
+                <input type="number" name="" id="" />
+                <input type="number" name="" id="" />
+                <input type="number" name="" id="" />
+                <input type="number" name="" id="" />
+  
+                <input type="number" name="" id="" class="gametable__linebreak" />
+                <input type="number" name="" id="" />
+                <input type="number" name="" id="" />
+                <input type="number" name="" id="" />
+                <input type="number" name="" id="" />
+                <input type="number" name="" id="" />
+                <input type="number" name="" id="" />
+                <input type="number" name="" id="" />
+                <input type="number" name="" id="" />
+             
+            </div> -->
+        </main>
+    </body>
+</html>
