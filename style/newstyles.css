@@ -32,11 +32,14 @@ main {
     text-align: center;
     caret-color: transparent;
 }
-.gametable__box__table input:disabled {
-    background-color: lightgray;
+.gametable__box__table input.success {
+    background-color: lightgreen;
 }
 .gametable__box__table input.wrong {
     background-color: red;
+}
+.gametable__box__table input:disabled {
+    background-color: lightgray;
 }
 
 .gametable__box__table input::-webkit-outer-spin-button,

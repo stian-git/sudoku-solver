@@ -1,12 +1,9 @@
 const allInputs = document.querySelectorAll(".gametable__box__table input");
 const numberOfRows = Math.sqrt(allInputs.length);
-//console.log("Rows: " + numberOfRows);
-const filledNumbers = "42683 5919859216977916 5 3896571 28 13486275982745 163 7235 1 9598416273314972 86";
+const filledNumbers = "42683 591 859216 77916 5 3896571 28 13486275982745 163 7235 1 9598416273314972 86";
 const filledNumbersArray = filledNumbers.split("");
-//console.log(filledNumbersArray);
 
 function showFilledNumbers(arr) {
-    //console.log(arr.length);
     if (arr.length === 81) {
         for (let i = 0; i < filledNumbers.length; i++) {
             if (isNaN(Number(arr[i])) || arr[i] == " ") {
@@ -22,19 +19,34 @@ function showFilledNumbers(arr) {
 }
 showFilledNumbers(filledNumbersArray);
 
+function clearAllClasses() {
+    // make all non-empty fields success by default.
+    allInputs.forEach((e) => {
+        e.classList.remove("wrong");
+        if (e.value != "") {
+            e.classList.add("success");
+        }
+    })
+}
+
 allInputs.forEach((element) => {
     element.addEventListener("keyup", (e) => {
-        // Check input length as it will not work with css on numbers:
-        checkInputLength(e.target);
-        //checkForErrors();
-        //checkRow(1);
+        if (e.key !== "Tab") {
+            // Reset status of fields.
+            clearAllClasses();
+            checkInputLength(e.target);
+            checkForErrors();
+            checkForVictory();
+        }
     });
 });
 
-//mark failed inputs with class: wrong;
-
-// checkAllBoxes();
-// checkAllRows();
-// checkAllColumns();
-checkBox(2);
-//checkForErrors();
+function checkForVictory() {
+    const totalFields = filledNumbers.length;
+    const fieldsToNotFill = document.querySelectorAll(".gametable__box__table input:disabled").length
+    const filledFields = document.querySelectorAll(".gametable__box__table input.success:not([disabled])").length;
+    if (totalFields - fieldsToNotFill == filledFields) {
+        showStatusMessage(false, "Congratulations! You nailed it!");
+        // 
+    };
+}
