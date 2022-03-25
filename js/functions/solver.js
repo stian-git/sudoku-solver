@@ -62,7 +62,9 @@ function findMissingNumbers(unSortedArr, emptyValueArr) {
         //console.log("This is an easy pick...I got this...");
         fillNumber(emptyValueArr[0].id, missingValues[0]);
     }
+    console.log(missingValues);
     return missingValues;
+
     // handle if there are more options?
 }
 function fillNumber(field, value) {
@@ -91,26 +93,27 @@ function findEmptyFields(unSortedArr) {
 
 // 4: check row and column
 
-function checkBothDirections(mainArr, secArr, idx) {}
+//function checkBothDirections(mainArr, secArr, idx) {}
 
 //checkBothDirections(7)
 
+// below is not in use at the moment.
 function getArrFromBothDirections(fieldid) {
     // NB: this function will only work with Sudoku sized: 9x9
     console.log(fieldid);
     //row
-
     const rowNumber = fieldid[2];
     const columnNumber = fieldid[4];
+    // NB: The rows returned in the below function are sorted on value.
     const thisRow = getRowArray(rowNumber);
     const thisColumn = getColumnArray(columnNumber);
-    console.log(rowNumber);
+    //console.log(rowNumber);
     console.log(thisRow);
-    console.log(columnNumber);
+    //console.log(columnNumber);
     console.log(thisColumn);
 }
 
-getArrFromBothDirections("#r5c1");
+//getArrFromBothDirections("#r5c1");
 
 // 5: check row and box
 
@@ -122,3 +125,29 @@ getArrFromBothDirections("#r5c1");
 //    and the rest is the only missing in another box.
 
 // 9
+function probeForValueInRow(fieldid, alternativeValues) {
+    // colum has already been checked, and we have retrieved missing values in the column.
+    //console.log(fieldid);
+    console.log(alternativeValues);
+    console.log(alternativeValues.length);
+    const row = getRowArray(fieldid[2]);
+    console.log(row);
+
+    for (let i = 0; i < row.length; i++) {
+        alternativeValues.forEach((value, idx) => {
+            if (row[i].value == value) {
+                console.log(value + " should be removed from options. Index: " + idx);
+                alternativeValues.splice(idx, 1);
+            }
+        });
+        //console.log(row[i].value);
+    }
+    console.log(alternativeValues.length);
+    console.log(alternativeValues);
+    if (alternativeValues.length == 1) {
+        fillNumber(fieldid, alternativeValues[0]);
+    }
+    // handle if alternative values are more than one?
+}
+
+// Function above works, but it`s not added to anything yet. Just tested with a single field and expected values.

@@ -59,3 +59,7 @@ function checkForVictory() {
         // Do more than just show the status msg?
     }
 }
+
+probeForValueInRow("#r2c7", [4, 8]);
+
+////
