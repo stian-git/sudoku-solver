@@ -1,7 +1,8 @@
 const allInputs = document.querySelectorAll(".gametable__box__table input");
 const numberOfRows = Math.sqrt(allInputs.length);
-const filledNumbers = "42683 591 859216 77916 5 3896571 28 13486275982745 163 7235 1 9598416273314972 86";
+const filledNumbers = "42683 591 859216 77916 5 3896571 28 13486275982745 163 7235 1 9598416273314972886";
 const filledNumbersArray = filledNumbers.split("");
+//let currentValueArray = [];
 
 function showFilledNumbers(arr) {
     if (arr.length === 81) {
@@ -26,7 +27,7 @@ function clearAllClasses() {
         if (e.value != "") {
             e.classList.add("success");
         }
-    })
+    });
 }
 
 allInputs.forEach((element) => {
@@ -43,10 +44,10 @@ allInputs.forEach((element) => {
 
 function checkForVictory() {
     const totalFields = filledNumbers.length;
-    const fieldsToNotFill = document.querySelectorAll(".gametable__box__table input:disabled").length
+    const fieldsToNotFill = document.querySelectorAll(".gametable__box__table input:disabled").length;
     const filledFields = document.querySelectorAll(".gametable__box__table input.success:not([disabled])").length;
     if (totalFields - fieldsToNotFill == filledFields) {
         showStatusMessage(false, "Congratulations! You nailed it!");
-        // Do more than just show the status msg? 
-    };
+        // Do more than just show the status msg?
+    }
 }

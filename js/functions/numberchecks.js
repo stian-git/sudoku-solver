@@ -1,17 +1,17 @@
 const allBoxes = document.querySelectorAll(".gametable__box");
 const expectedArrayString = "123456789";
 
-function checkArray(arr){
+function checkArray(arr) {
     const sortedArray = arr.sort((a, b) => {
         return a.value - b.value;
-    })
+    });
     let currentValueString = "";
-    sortedArray.forEach(element => {
+    sortedArray.forEach((element) => {
         currentValueString += element.value;
     });
     // Checks
     checkExpectedArrayValues(currentValueString);
-    checkforDuplicatesInArray(arr); 
+    checkforDuplicatesInArray(arr);
 }
 
 function checkExpectedArrayValues(values) {
@@ -36,10 +36,12 @@ function checkForErrors() {
 function checkforDuplicatesInArray(arr) {
     let duplicates = [];
     for (let i = 0; i < arr.length; i++) {
-        for (let j = i+1; j < arr.length; j++) {
-            if (arr[i].value === arr[j].value){
-                duplicates.push(arr[i]);
-                duplicates.push(arr[j]);
+        for (let j = i + 1; j < arr.length; j++) {
+            if (arr[i].value === arr[j].value) {
+                if (arr[i].value !== "") {
+                    duplicates.push(arr[i]);
+                    duplicates.push(arr[j]);
+                }
             }
         }
     }
@@ -47,14 +49,13 @@ function checkforDuplicatesInArray(arr) {
     return duplicates;
 }
 
-function markItems(arr, isWrong = true ){
+function markItems(arr, isWrong = true) {
     if (isWrong === true) {
         //console.log("This is an error. (default)");
-        arr.forEach(element => {
+        arr.forEach((element) => {
             if (element.value != "") {
                 document.querySelector(element.id).classList.add("wrong");
             }
-            
         });
     } else {
         //console.log("This is an not error.");
