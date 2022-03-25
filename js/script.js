@@ -1,8 +1,6 @@
-const allInputs = document.querySelectorAll(".gametable__box__table input");
-const numberOfRows = Math.sqrt(allInputs.length);
-const filledNumbers = "42683 591 859216 77916 5 3896571 28 13486275982745 163 7235 1 9598416273314972886";
+//const filledNumbers = "42683 591 859216 77916 5 3896571 28 13486275982745 163 7235 1 9598416273314972 86";
+const filledNumbers = "1 93 5 242 846  7   7  19 6948 1673275 3  91 1 379 5 8  3251  71  6478  27 38 61 ";
 const filledNumbersArray = filledNumbers.split("");
-//let currentValueArray = [];
 
 function showFilledNumbers(arr) {
     if (arr.length === 81) {
@@ -14,13 +12,16 @@ function showFilledNumbers(arr) {
                 allInputs[i].disabled = true;
             }
         }
+        return true;
     } else {
         showStatusMessage(true, "The provided gamedata do not contain 81 fields");
+        return false;
     }
 }
 showFilledNumbers(filledNumbersArray);
 
 function clearAllClasses() {
+    //console.log("Now clearing classes...");
     // make all non-empty fields success by default.
     allInputs.forEach((e) => {
         e.classList.remove("wrong");
@@ -32,7 +33,14 @@ function clearAllClasses() {
 
 allInputs.forEach((element) => {
     element.addEventListener("keyup", (e) => {
-        if (e.key !== "Tab") {
+        let disabledCount = 0;
+        allInputs.forEach((field) => {
+            if (field.disabled == true) {
+                disabledCount++;
+            }
+        });
+        console.log("Disabled fields: " + disabledCount);
+        if (e.key !== "Tab" || disabledCount > 0) {
             // Reset status of fields.
             clearAllClasses();
             checkInputLength(e.target);

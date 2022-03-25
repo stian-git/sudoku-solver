@@ -5,7 +5,6 @@ function checkAllRows() {
     }
 }
 
-
 function getRowArray(rowNumber) {
     let tempValues = [];
     //let currentObject = [];
@@ -14,10 +13,10 @@ function getRowArray(rowNumber) {
         const currentValue = document.querySelector(elementId).value;
         //const currentIndex = i-1;
         currentObject = {
-            "id": elementId,
-            "value": currentValue,
+            id: elementId,
+            value: currentValue,
             // "index": currentIndex
-        } 
+        };
         //tempValues.push(tempValue);
         tempValues.push(currentObject);
     }

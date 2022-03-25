@@ -10,9 +10,9 @@ function getColumnArray(columnNumber) {
         const elementId = `#r${i}c${columnNumber}`;
         const currentValue = document.querySelector(elementId).value;
         currentObject = {
-            "id": elementId,
-            "value": currentValue,
-        } 
+            id: elementId,
+            value: currentValue,
+        };
         tempValues.push(currentObject);
     }
     checkArray(tempValues);

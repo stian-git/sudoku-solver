@@ -4,3 +4,7 @@
     border-radius: 15px;
     background-color: yellowgreen;
 }
+
+.controls .reset {
+    float: right;
+}
