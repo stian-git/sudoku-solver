@@ -20,10 +20,6 @@ function getBoxArray(box) {
         currentValueArray.push(currentObject);
         tempValues.push(currentObject);
     }
-    //const currentValueArray = tempValues;
-    //console.log(currentValueArray);
-    //console.log(tempValues);
-
     checkArray(tempValues);
     return currentValueArray;
 }
