@@ -163,3 +163,5 @@ function startGame(arr) {
     }
 }
 startGame(filledNumbersArray);
+
+probeLonelyFieldforPairsInOtherElements()

@@ -6,7 +6,9 @@
 // lvl3 #380: const filledNumbers = "     1 52 345 79  6  4   3  6  47  5458 1972 17   3 4 9       83  896 45 8 32   7";
 // lvl4 #432: const filledNumbers = "43   91  96    7  2  7  98   4 2 591   3       2 7  6  15   74843 589  262    395";
 // lvl4 #440 (unsolved):
-const filledNumbers = "265 1 84 3    4 51 94  8   5784 6  2         93  81  7 2      1 63  8 92  5 2 4  ";
+// const filledNumbers = "265 1 84 3    4 51 94  8   5784 6  2         93  81  7 2      1 63  8 92  5 2 4  ";
+const filledNumbers = "265 1 84 387 24 51194  8   578436192  6279835932581647 2  5  81 63  8 92  5 2 4  ";
+
 const filledNumbersArray = filledNumbers.split("");
 
 let storage = window.localStorage;

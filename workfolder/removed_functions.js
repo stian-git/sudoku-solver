@@ -95,3 +95,52 @@ function findEmptyFields(unSortedArr) {
     }
     return emptyFields;
 }
+
+
+/// incomplete below:
+
+
+
+function probeLonelyFieldforPairsInOtherElements(id) {
+    id = "#r9c4";
+    const rowNumber = id[2];
+    const columnNumber = id[4];
+    const currentItemRow = getRowArray(rowNumber);
+    const currentItemColumn = getColumnArray(columnNumber);
+    
+    
+    
+    const pairedRowsArray = getPairedElements(rowNumber);
+    const pairedColumnsArray = getPairedElements(columnNumber);
+
+    //const missingRowValues = findMissingNumbers(currentItemRow);
+    const allCurrentValuesInRowOrColumn = currentItemRow.concat(currentItemColumn);
+    //console.log(allCurrentValuesInRowOrColumn);
+    //const possibleValues = findMissingNumbersInArray(allCurrentValuesInRowOrColumn);
+    //const possibleValues = allCurrentValuesInRowOrColumn.filter(onlyUnique);
+    let allCurrentValuesOnly = [];
+    allCurrentValuesInRowOrColumn.forEach((element) => {
+        //console.log(element.value);
+        //allCurrentValuesOnly.push(element.value);
+        if (element.value !== "") {
+            allCurrentValuesOnly.push(element.value);
+        }
+    });
+    console.log(allCurrentValuesOnly);
+    const allCurrentUniqueValues = allCurrentValuesOnly.filter(onlyUnique);
+    //console.log(allCurrentUniqueValues);
+
+    const allPossibleValues = findMissingNumbersInArray(allCurrentValuesOnly);
+
+    //const missingValuesInRow = findMissingNumbersInArray(currentItemRow);
+    //const missingValuesInColumn = findMissingNumbersInArray(currentItemColumn);
+    const allMissingValuesInRowOrColumn = missingValuesInRow.concat(missingValuesInColumn);
+    console.log(allMissingValuesInRowOrColumn);
+    const allCurrentUniqueValuesMissing = allMissingValuesInRowOrColumn.filter(onlyUnique);
+    //console.log(allPossibleValues);
+    console.log(allCurrentUniqueValuesMissing);
+    //console.log(missingRowValues);
+    //console.log(possibleValues);
+
+    // Get missing values for the current field:
+}

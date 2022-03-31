@@ -9,43 +9,88 @@
 
 function probeLonelyFieldforPairsInOtherElements(id) {
     id = "#r9c4";
+    const currentItemElement = document.querySelector(id);
     const rowNumber = id[2];
     const columnNumber = id[4];
+    const boxNumber = currentItemElement.classList[0][3];
     const currentItemRow = getRowArray(rowNumber);
     const currentItemColumn = getColumnArray(columnNumber);
+    const currentItemBox = getBoxArray(boxNumber);
+    
+    //console.log(currentItemElement.classList[0][3]);
+    //const currentItemBox = getBoxArray()
+    
+    
     const pairedRowsArray = getPairedElements(rowNumber);
     const pairedColumnsArray = getPairedElements(columnNumber);
 
-    //const missingRowValues = findMissingNumbers(currentItemRow);
-    const allCurrentValuesInRowOrColumn = currentItemRow.concat(currentItemColumn);
-    //console.log(allCurrentValuesInRowOrColumn);
-    //const possibleValues = findMissingNumbersInArray(allCurrentValuesInRowOrColumn);
-    //const possibleValues = allCurrentValuesInRowOrColumn.filter(onlyUnique);
+    const allCurrentValuesInRowOrColumn = currentItemRow.concat(currentItemColumn,currentItemBox);
     let allCurrentValuesOnly = [];
     allCurrentValuesInRowOrColumn.forEach((element) => {
-        //console.log(element.value);
-        //allCurrentValuesOnly.push(element.value);
         if (element.value !== "") {
             allCurrentValuesOnly.push(element.value);
         }
     });
-    console.log(allCurrentValuesOnly);
     const allCurrentUniqueValues = allCurrentValuesOnly.filter(onlyUnique);
-    //console.log(allCurrentUniqueValues);
-
-    const allPossibleValues = findMissingNumbersInArray(allCurrentValuesOnly);
-
-    //const missingValuesInRow = findMissingNumbersInArray(currentItemRow);
-    //const missingValuesInColumn = findMissingNumbersInArray(currentItemColumn);
-    const allMissingValuesInRowOrColumn = missingValuesInRow.concat(missingValuesInColumn);
-    console.log(allMissingValuesInRowOrColumn);
-    const allCurrentUniqueValuesMissing = allMissingValuesInRowOrColumn.filter(onlyUnique);
-    //console.log(allPossibleValues);
-    console.log(allCurrentUniqueValuesMissing);
-    //console.log(missingRowValues);
-    //console.log(possibleValues);
+    
+    for (let i = 0 ; i <= 1+ (numberOfRows - allCurrentUniqueValues.length); i++) {
+        allCurrentUniqueValues.push("");
+    }
+    const allPossibleValues = findMissingNumbersInArray(allCurrentUniqueValues);
+    console.log(allPossibleValues);
 
     // Get missing values for the current field:
+    // Check paired rows:
+    let pairedRowsValuesArray = [];
+    let pairedColumnsValuesArray = [];
+    pairedColumnsArray.forEach((column) => {
+        const columnValues = getColumnArray(column);
+        pairedColumnsValuesArray.push(columnValues);
+    })
+    pairedRowsArray.forEach((row) => {
+        const rowValues = getRowArray(row);
+        pairedRowsValuesArray.push(rowValues);
+        // rowValues.forEach((rowValue) => {
+        //     pairedRowsValuesArray.push(rowValue.value);
+        // } )
+    });
+    console.log(pairedRowsValuesArray);
+
+    allPossibleValues.forEach((value) => {
+        //console.log("Test");
+        //console.log(pairedRowsArray[0].length);
+        for (let j = 0; j < pairedRowsValuesArray[0].length; j++) {
+            //console.log(pairedRowsValuesArray[0][j].value);
+            if (value == pairedRowsValuesArray[0][j].value) {
+                console.log("Match: " + pairedRowsValuesArray[0][j].value);
+                for (let k = 0; k < pairedRowsValuesArray[1].length; k++) {
+                    if (value == pairedRowsValuesArray[0][j].value && value == pairedRowsValuesArray[1][k].value) {
+                        console.log("Matched in both places: " + value);
+                        // add this value to this field.
+                    }
+                }
+            }
+            //console.log("Something: " +j);
+        }
+        // Check paired columns:
+        for (let s = 0; s < pairedColumnsValuesArray[0].length; s++) {
+            //console.log(pairedRowsValuesArray[0][j].value);
+            if (value == pairedColumnsValuesArray[0][s].value) {
+                console.log("Match: " + pairedColumnsValuesArray[0][s].value);
+                for (let t = 0; t < pairedColumnsValuesArray[1].length; t++) {
+                    if (value == pairedColumnsValuesArray[0][s].value && value == pairedColumnsValuesArray[1][t].value) {
+                        console.log("Matched in both places: " + value);
+                        // add this value to this field.
+                    }
+                }
+            }
+            //console.log("Something: " +j);
+        }   
+    })
+
+    // ONLY ROW IS TESTED OK. COLUMN also gives a match, Must be checked!
+
+    // Check paired columns:
 }
 
 function onlyUnique(value, index, self) {
@@ -53,12 +98,10 @@ function onlyUnique(value, index, self) {
 }
 
 function findMissingNumbersInArray(unSortedArr) {
-    let missingValues;
+    let missingValues = [];
     for (let i = 1; i <= unSortedArr.length; i++) {
-        if (!unSortedArr.some((element) => element.value == i)) {
-            if (i !== "") {
-                missingValues.push(i);
-            }
+        if (!unSortedArr.some((element) => element == i)) {
+            missingValues.push(i);
         }
     }
     return missingValues;
