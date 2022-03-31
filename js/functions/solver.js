@@ -12,38 +12,38 @@ function solveFunction() {
         //changes = 0;
         shouldRecheck = false;
         // check for only option (all alternatives);
-        checkForOnlyOption();
+        shouldRecheck = checkForOnlyOption();
         // checks single elements (row, column, box):
-        for (let i = 1; i <= numberOfRows; i++) {
-            let arrayOfValueArrays = [];
-            const currentBoxObject = {
-                type: "box",
-                objects: getBoxArray(i),
-            };
-            const currentRowObject = {
-                type: "row",
-                objects: getRowArray(i),
-            };
-            const currentColumnObject = {
-                type: "column",
-                objects: getColumnArray(i),
-            };
-            arrayOfValueArrays.push(currentBoxObject, currentRowObject, currentColumnObject);
-            //console.log(arrayOfValueArrays);
-            for (let j = 0; j < arrayOfValueArrays.length; j++) {
-                const currentElementItems = arrayOfValueArrays[j].objects;
-                const emptyValueArray = findEmptyFields(currentElementItems);
-                if (emptyValueArray.length > 0) {
-                    const missingNumbers = findMissingNumbers(currentElementItems, emptyValueArray);
+        // for (let i = 1; i <= numberOfRows; i++) {
+        //     let arrayOfValueArrays = [];
+        //     const currentBoxObject = {
+        //         type: "box",
+        //         objects: getBoxArray(i),
+        //     };
+        //     const currentRowObject = {
+        //         type: "row",
+        //         objects: getRowArray(i),
+        //     };
+        //     const currentColumnObject = {
+        //         type: "column",
+        //         objects: getColumnArray(i),
+        //     };
+        //     arrayOfValueArrays.push(currentBoxObject, currentRowObject, currentColumnObject);
+        //     //console.log(arrayOfValueArrays);
+        //     for (let j = 0; j < arrayOfValueArrays.length; j++) {
+        //         const currentElementItems = arrayOfValueArrays[j].objects;
+        //         const emptyValueArray = findEmptyFields(currentElementItems);
+        //         if (emptyValueArray.length > 0) {
+        //             const missingNumbers = findMissingNumbers(currentElementItems, emptyValueArray);
 
-                    //console.log(missingNumbers);
-                    if (missingNumbers.length == 1) {
-                        shouldRecheck = true;
-                        //what if there are more?
-                    }
-                }
-            }
-        }
+        //             //console.log(missingNumbers);
+        //             if (missingNumbers.length == 1) {
+        //                 shouldRecheck = true;
+        //                 //what if there are more?
+        //             }
+        //         }
+        //     }
+        // }
     }
     shouldRecheck = true;
     clearAllClasses();
@@ -168,25 +168,17 @@ function getAllFieldsWithNoValue() {
 }
 
 function checkForOnlyOption() {
-    //const values = expectedArrayString.indexOf("2");
-    //let values = expectedArrayString;
+    let changeIsMade = false;
     let values = "13456789";
-    //console.log("Values: " + expectedArrayString.length);
-    //console.log(values.replace("2",""));
     let emptyFieldsToCheck = [];
     emptyFieldsToCheck = getAllFieldsWithNoValue();
-    //console.log(emptyFieldsToCheck.length);
-    //foreach allInputs.id =
     let allValues = [];
-
     emptyFieldsToCheck.forEach((field) => {
         // reset :
         values = "123456789";
         allValues = [];
-        // 1. find box:
+        // find box values.
         const currentBox = field.classList[0];
-
-        // 2. find box values.
         const allBoxFields = document.querySelectorAll(`.${currentBox}`);
         allBoxFields.forEach((field) => {
             if (field.value > 0) {
@@ -199,9 +191,9 @@ function checkForOnlyOption() {
         allRowFields.forEach((field) => {
             if (field.value > 0) {
                 allValues.push(field.value);
-                // add values to an array or remove from one?
             }
         });
+        //find values in column:
         const currentColumn = field.classList[4];
         const allColumnFields = document.querySelectorAll(`.${currentColumn}`);
         allColumnFields.forEach((field) => {
@@ -209,23 +201,17 @@ function checkForOnlyOption() {
                 allValues.push(field.value);
             }
         });
-        //console.log("All values: ");
-        //console.log(allValues);
+        // Remove found values from the string of all available numbers
         allValues.forEach((value) => {
             if (values.includes(value) === true) {
-                //console.log("Included: " + value);
                 values = values.replace(value, "");
-            } else {
-                //console.log("Not included: " + value);
             }
-            // if present => remove it.
         });
+        // if possible values are only on left, we fill it:
         if (values.length === 1) {
-            //console.log(`Field ${field.id} should get: ` + values);
-            // Place value now.
             fillNumber("#" + field.id, values);
+            changeIsMade = true;
         }
-        //console.log("Remaining options for " + field.id + ":");
-        //console.log(values);
     });
+    return changeIsMade;
 }
