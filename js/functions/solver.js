@@ -11,7 +11,8 @@ function solveFunction() {
         console.log("Running loop");
         //changes = 0;
         shouldRecheck = false;
-
+        // check for only option (all alternatives);
+        checkForOnlyOption();
         // checks single elements (row, column, box):
         for (let i = 1; i <= numberOfRows; i++) {
             let arrayOfValueArrays = [];
@@ -34,6 +35,7 @@ function solveFunction() {
                 const emptyValueArray = findEmptyFields(currentElementItems);
                 if (emptyValueArray.length > 0) {
                     const missingNumbers = findMissingNumbers(currentElementItems, emptyValueArray);
+                    
                     //console.log(missingNumbers);
                     if (missingNumbers.length == 1) {
                         shouldRecheck = true;
@@ -62,7 +64,7 @@ function findMissingNumbers(unSortedArr, emptyValueArr) {
         //console.log("This is an easy pick...I got this...");
         fillNumber(emptyValueArr[0].id, missingValues[0]);
     }
-    console.log(missingValues);
+    //console.log(missingValues);
     return missingValues;
 
     // handle if there are more options?
@@ -148,6 +150,139 @@ function probeForValueInRow(fieldid, alternativeValues) {
         fillNumber(fieldid, alternativeValues[0]);
     }
     // handle if alternative values are more than one?
-}
+};
 
 // Function above works, but it`s not added to anything yet. Just tested with a single field and expected values.
+// probeForValueInRow("#r2c7", [4, 8])
+
+function getAllFieldsWithNoValue() {
+    let emptyFieldListArray = [];
+    //console.log(allInputs);
+    allInputs.forEach(element => {
+        if (element.value === "") {
+            //console.log(element.id + " got no value");
+            emptyFieldListArray.push(element);
+        }
+    });
+    return emptyFieldListArray;
+};
+
+function checkForOnlyOption() {
+    //const values = expectedArrayString.indexOf("2");
+    let values = expectedArrayString;
+    //let values = "13456789";
+    //console.log("Values: " + expectedArrayString.length);
+    //console.log(values.replace("2",""));
+    let emptyFieldsToCheck = getAllFieldsWithNoValue();
+    console.log(emptyFieldsToCheck.length);
+    //foreach allInputs.id =
+    let allValues = [];
+
+    emptyFieldsToCheck.forEach((field) => {
+        // 1. find box:
+        const currentBox = field.classList[0];
+
+        // 2. find box values.
+        const allBoxFields = document.querySelectorAll(`.${currentBox}`);
+        allBoxFields.forEach((field) => {
+            if (field.value > 0) {
+                emptyFieldsToCheck.push(field.value);
+            }
+        })
+        //find values in row:
+        const currentRow = field.classList[3];
+        const allRowFields = document.querySelectorAll(`.${currentRow}`)
+        allRowFields.forEach((field) => {
+            if (field.value > 0) {
+                emptyFieldsToCheck.push(field.value);
+        // add values to an array or remove from one?
+            }
+        })
+
+        const currentColumn = field.classList[4];
+        const allColumnFields = document.querySelectorAll(`.${currentColumn}`)
+        allColumnFields.forEach((field) => {
+            if (field.value > 0) {
+                emptyFieldsToCheck.push(field.value);
+            }
+        })
+
+
+        allValues.forEach((value) => {
+//console.log(value);
+//console.log(values.includes(value));
+
+            if (values.includes(value) === true) {
+    //console.log("Included: " + value)
+    //console.log(typeof value);
+                values = values.replace(value,"");
+    //values = "svada";
+    //console.log(values);
+            } else {
+    //console.log("Not included: " + value)
+            }
+// if present => remove it.
+
+        })
+    })
+    //for (let i=30; i < emptyFieldsToCheck.length; i++) {
+      //  
+       // console.log(emptyFieldsToCheck[i]);
+       // console.log(emptyFieldsToCheck[i].id);
+        
+        //find current values in box:
+    //     // 1. find box:
+    //     const currentBox = emptyFieldsToCheck[i].classList[0];
+
+    //     // 2. find box values.
+    //     const allBoxFields = document.querySelectorAll(`.${currentBox}`);
+    //     allBoxFields.forEach((field) => {
+    //         if (field.value > 0) {
+    //             emptyFieldsToCheck.push(field.value);
+    //         }
+    //     })
+    //     //find values in row:
+    //     const currentRow = emptyFieldsToCheck[i].classList[3];
+    //     const allRowFields = document.querySelectorAll(`.${currentRow}`)
+    //     allRowFields.forEach((field) => {
+    //         if (field.value > 0) {
+    //             emptyFieldsToCheck.push(field.value);
+    //             // add values to an array or remove from one?
+    //         }
+    //     })
+
+    //     const currentColumn = emptyFieldsToCheck[i].classList[4];
+    //     const allColumnFields = document.querySelectorAll(`.${currentColumn}`)
+    //     allColumnFields.forEach((field) => {
+    //         if (field.value > 0) {
+    //             emptyFieldsToCheck.push(field.value);
+    //         }
+    //     })
+
+    // }
+    // allValues.forEach((value) => {
+    //     //console.log(value);
+    //     //console.log(values.includes(value));
+
+    //     if (values.includes(value) === true) {
+    //         //console.log("Included: " + value)
+    //         //console.log(typeof value);
+    //         values = values.replace(value,"");
+    //         //values = "svada";
+    //         //console.log(values);
+    //     } else {
+    //         //console.log("Not included: " + value)
+    //     }
+    //     // if present => remove it.
+        
+    // })
+    //input:not([value])
+    console.log("Remaining options:");
+    console.log(values);
+    console.log(expectedArrayString);
+    //find values in column:
+    }
+
+
+
+    // Status 30.3: Working on the last function. for-loop worked for all but the last, so I changed to foreach.

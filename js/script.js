@@ -60,6 +60,6 @@ function checkForVictory() {
     }
 }
 
-probeForValueInRow("#r2c7", [4, 8]);
+//probeForValueInRow("#r2c7", [4, 8]);
 
 ////
