@@ -7,8 +7,13 @@
 
 // Test with r9c4
 
-function probeLonelyFieldforPairsInOtherElements(id) {
-    id = "#r9c4";
+function probeLonelyFieldforPairsInOtherElements(id, checkRow) {
+    // abort this function if checkrow is not defined.
+    if (checkRow === undefined) {
+        console.error("checkRow is not defined");
+        return;
+    }
+    //id = "#r9c4";
     const currentItemElement = document.querySelector(id);
     const rowNumber = id[2];
     const columnNumber = id[4];
@@ -16,15 +21,14 @@ function probeLonelyFieldforPairsInOtherElements(id) {
     const currentItemRow = getRowArray(rowNumber);
     const currentItemColumn = getColumnArray(columnNumber);
     const currentItemBox = getBoxArray(boxNumber);
-    
+
     //console.log(currentItemElement.classList[0][3]);
     //const currentItemBox = getBoxArray()
-    
-    
+
     const pairedRowsArray = getPairedElements(rowNumber);
     const pairedColumnsArray = getPairedElements(columnNumber);
 
-    const allCurrentValuesInRowOrColumn = currentItemRow.concat(currentItemColumn,currentItemBox);
+    const allCurrentValuesInRowOrColumn = currentItemRow.concat(currentItemColumn, currentItemBox);
     let allCurrentValuesOnly = [];
     allCurrentValuesInRowOrColumn.forEach((element) => {
         if (element.value !== "") {
@@ -32,8 +36,8 @@ function probeLonelyFieldforPairsInOtherElements(id) {
         }
     });
     const allCurrentUniqueValues = allCurrentValuesOnly.filter(onlyUnique);
-    
-    for (let i = 0 ; i <= 1+ (numberOfRows - allCurrentUniqueValues.length); i++) {
+
+    for (let i = 0; i <= 1 + (numberOfRows - allCurrentUniqueValues.length); i++) {
         allCurrentUniqueValues.push("");
     }
     const allPossibleValues = findMissingNumbersInArray(allCurrentUniqueValues);
@@ -46,7 +50,7 @@ function probeLonelyFieldforPairsInOtherElements(id) {
     pairedColumnsArray.forEach((column) => {
         const columnValues = getColumnArray(column);
         pairedColumnsValuesArray.push(columnValues);
-    })
+    });
     pairedRowsArray.forEach((row) => {
         const rowValues = getRowArray(row);
         pairedRowsValuesArray.push(rowValues);
@@ -56,37 +60,60 @@ function probeLonelyFieldforPairsInOtherElements(id) {
     });
     console.log(pairedRowsValuesArray);
 
-    allPossibleValues.forEach((value) => {
-        //console.log("Test");
-        //console.log(pairedRowsArray[0].length);
-        for (let j = 0; j < pairedRowsValuesArray[0].length; j++) {
-            //console.log(pairedRowsValuesArray[0][j].value);
-            if (value == pairedRowsValuesArray[0][j].value) {
-                console.log("Match: " + pairedRowsValuesArray[0][j].value);
-                for (let k = 0; k < pairedRowsValuesArray[1].length; k++) {
-                    if (value == pairedRowsValuesArray[0][j].value && value == pairedRowsValuesArray[1][k].value) {
-                        console.log("Matched in both places: " + value);
-                        // add this value to this field.
+    if (checkRow === true) {
+        allPossibleValues.forEach((value) => {
+            console.log("Checking rows...");
+            //console.log(pairedRowsArray[0].length);
+            for (let j = 0; j < pairedRowsValuesArray[0].length; j++) {
+                //console.log(pairedRowsValuesArray[0][j].value);
+                if (value == pairedRowsValuesArray[0][j].value) {
+                    console.log("Match: " + pairedRowsValuesArray[0][j].value);
+                    for (let k = 0; k < pairedRowsValuesArray[1].length; k++) {
+                        if (value == pairedRowsValuesArray[0][j].value && value == pairedRowsValuesArray[1][k].value) {
+                            console.log("Matched in both places: " + value);
+                            // add this value to this field.
+                            fillNumber(id, value);
+                        }
                     }
                 }
+                //console.log("Something: " +j);
             }
-            //console.log("Something: " +j);
-        }
-        // Check paired columns:
-        for (let s = 0; s < pairedColumnsValuesArray[0].length; s++) {
-            //console.log(pairedRowsValuesArray[0][j].value);
-            if (value == pairedColumnsValuesArray[0][s].value) {
-                console.log("Match: " + pairedColumnsValuesArray[0][s].value);
-                for (let t = 0; t < pairedColumnsValuesArray[1].length; t++) {
-                    if (value == pairedColumnsValuesArray[0][s].value && value == pairedColumnsValuesArray[1][t].value) {
-                        console.log("Matched in both places: " + value);
-                        // add this value to this field.
+        });
+    } else {
+        console.log("Checking columns...");
+        allPossibleValues.forEach((value) => {
+            //console.log("Test");
+            //console.log(pairedRowsArray[0].length);
+            // for (let j = 0; j < pairedRowsValuesArray[0].length; j++) {
+            //     //console.log(pairedRowsValuesArray[0][j].value);
+            //     if (value == pairedRowsValuesArray[0][j].value) {
+            //         console.log("Match: " + pairedRowsValuesArray[0][j].value);
+            //         for (let k = 0; k < pairedRowsValuesArray[1].length; k++) {
+            //             if (value == pairedRowsValuesArray[0][j].value && value == pairedRowsValuesArray[1][k].value) {
+            //                 console.log("Matched in both places: " + value);
+            //                 // add this value to this field.
+            //             }
+            //         }
+            //     }
+            //     //console.log("Something: " +j);
+            // }
+            //Check paired columns:
+            for (let s = 0; s < pairedColumnsValuesArray[0].length; s++) {
+                //console.log(pairedRowsValuesArray[0][j].value);
+                if (value == pairedColumnsValuesArray[0][s].value) {
+                    console.log("Match: " + pairedColumnsValuesArray[0][s].value);
+                    for (let t = 0; t < pairedColumnsValuesArray[1].length; t++) {
+                        if (value == pairedColumnsValuesArray[0][s].value && value == pairedColumnsValuesArray[1][t].value) {
+                            console.log("Matched in both places: " + value);
+                            // add this value to this field.
+                            fillNumber(id, value);
+                        }
                     }
                 }
+                //console.log("Something: " +j);
             }
-            //console.log("Something: " +j);
-        }   
-    })
+        });
+    }
 
     // ONLY ROW IS TESTED OK. COLUMN also gives a match, Must be checked!
 
