@@ -7,6 +7,81 @@
 
 // Test with r9c4
 
+function findLonelyValueInRow() {
+    const fieldsToCheck = getAllFieldsWithNoValue();
+    let fieldsToProbe = [];
+    if (fieldsToCheck.length > 0 ) {
+        console.log("We will check...");
+        //isFieldAloneInBoxRow(fieldsToCheck[0]);
+        fieldsToCheck.forEach(field => {
+            const fieldIsAlone = isFieldAloneInBoxRow(field);
+            if (fieldIsAlone === true) {
+                fieldsToProbe.push(field);
+            }
+        });
+    }
+    console.log(fieldsToProbe);
+    
+}
+
+function findLonelyValueInColumn() {
+    const fieldsToCheck = getAllFieldsWithNoValue();
+    let fieldsToProbe = [];
+    if (fieldsToCheck.length > 0 ) {
+        console.log("We will check...");
+        // isFieldAloneInBoxColumn(fieldsToCheck[0]);
+        fieldsToCheck.forEach(field => {
+            const fieldIsAlone = isFieldAloneInBoxColumn(field);
+            if (fieldIsAlone === true) {
+                fieldsToProbe.push(field);
+            }
+        });
+    }
+    console.log(fieldsToProbe);
+    
+}
+
+function isFieldAloneInBoxRow(id) {
+    console.log("#" + id.id);
+    let result = false;
+    const currentColumnIndex = id.id[3];
+    const emptyFieldId = id.id;
+    //console.log(currentColumnIndex);
+    const columnsToCheck = getPairedElements(currentColumnIndex);
+    //console.log(columnsToCheck);
+    const firstFieldId = "#" + emptyFieldId.slice(0,-1)+ columnsToCheck[0];
+    const secondFieldId = "#" + emptyFieldId.slice(0,-1)+ columnsToCheck[1];
+    console.log(firstFieldId + " - " + secondFieldId);
+
+    if (document.querySelector(firstFieldId).value !== "" && document.querySelector(secondFieldId).value !== "") {
+    }
+    console.log(result);
+    return result;
+}
+
+function isFieldAloneInBoxColumn(id) {
+    console.log("#" + id.id);
+    let result = false;
+    const currentRowIndex = id.id[1];
+    const emptyFieldId = id.id;
+    //console.log(currentColumnIndex);
+    const rowsToCheck = getPairedElements(currentRowIndex);
+    //console.log(columnsToCheck);
+    console.log(rowsToCheck);
+    //const firstFieldId = "#" + emptyFieldId.slice(0,-1)+ rowsToCheck[0];
+    const firstFieldId = "#" + emptyFieldId.replace(emptyFieldId[1], rowsToCheck[0]);
+    const secondFieldId = "#" + emptyFieldId.replace(emptyFieldId[1], rowsToCheck[1]);
+    console.log(firstFieldId + " - " + secondFieldId);
+    if (document.querySelector(firstFieldId).value !== "" && document.querySelector(secondFieldId).value !== "") {
+        result = true;
+    }
+    console.log(result);
+    return result;
+}
+
+
+
+
 function probeLonelyFieldforPairsInOtherElements(id, checkRow) {
     // abort this function if checkrow is not defined.
     if (checkRow === undefined) {
