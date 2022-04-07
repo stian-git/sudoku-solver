@@ -1,94 +1,45 @@
 // Source: https://no.cm-santiago-do-cacem.pt/how-solve-sudoku-puzzles-any-difficulty
 
-// 1. get an empty field:
-// 2. if empty field is only in row or column:
-// 3. get possible values for field:
-// 4. verify if remaining rows or columns got the remaining values.
-
-// Test with r9c4
-
 function findLonelyValueInRow() {
     const fieldsToCheck = getAllFieldsWithNoValue();
+    console.log("Length: " + fieldsToCheck.length);
     let fieldsToProbe = [];
-    if (fieldsToCheck.length > 0 ) {
-        console.log("We will check...");
-        //isFieldAloneInBoxRow(fieldsToCheck[0]);
-        fieldsToCheck.forEach(field => {
-            const fieldIsAlone = isFieldAloneInBoxRow(field);
+    if (fieldsToCheck.length > 0) {
+        fieldsToCheck.forEach((field) => {
+            const fieldIsAlone = isFieldAloneInBoxRowOrColumn(field, true);
             if (fieldIsAlone === true) {
-                fieldsToProbe.push(field);
+                fieldsToProbe.push("#" + field.id);
             }
         });
     }
-    console.log(fieldsToProbe);
-    
+    fieldsToProbe.forEach((element) => {
+        probeLonelyFieldforPairsInOtherElements(element, true);
+    });
 }
 
 function findLonelyValueInColumn() {
     const fieldsToCheck = getAllFieldsWithNoValue();
     let fieldsToProbe = [];
-    if (fieldsToCheck.length > 0 ) {
-        console.log("We will check...");
-        // isFieldAloneInBoxColumn(fieldsToCheck[0]);
-        fieldsToCheck.forEach(field => {
-            const fieldIsAlone = isFieldAloneInBoxColumn(field);
+    if (fieldsToCheck.length > 0) {
+        fieldsToCheck.forEach((field) => {
+            const fieldIsAlone = isFieldAloneInBoxRowOrColumn(field, false);
             if (fieldIsAlone === true) {
-                fieldsToProbe.push(field);
+                fieldsToProbe.push("#" + field.id);
             }
         });
     }
-    console.log(fieldsToProbe);
-    
+    fieldsToProbe.forEach((element) => {
+        probeLonelyFieldforPairsInOtherElements(element, false);
+    });
 }
-
-function isFieldAloneInBoxRow(id) {
-    console.log("#" + id.id);
-    let result = false;
-    const currentColumnIndex = id.id[3];
-    const emptyFieldId = id.id;
-    //console.log(currentColumnIndex);
-    const columnsToCheck = getPairedElements(currentColumnIndex);
-    //console.log(columnsToCheck);
-    const firstFieldId = "#" + emptyFieldId.slice(0,-1)+ columnsToCheck[0];
-    const secondFieldId = "#" + emptyFieldId.slice(0,-1)+ columnsToCheck[1];
-    console.log(firstFieldId + " - " + secondFieldId);
-
-    if (document.querySelector(firstFieldId).value !== "" && document.querySelector(secondFieldId).value !== "") {
-    }
-    console.log(result);
-    return result;
-}
-
-function isFieldAloneInBoxColumn(id) {
-    console.log("#" + id.id);
-    let result = false;
-    const currentRowIndex = id.id[1];
-    const emptyFieldId = id.id;
-    //console.log(currentColumnIndex);
-    const rowsToCheck = getPairedElements(currentRowIndex);
-    //console.log(columnsToCheck);
-    console.log(rowsToCheck);
-    //const firstFieldId = "#" + emptyFieldId.slice(0,-1)+ rowsToCheck[0];
-    const firstFieldId = "#" + emptyFieldId.replace(emptyFieldId[1], rowsToCheck[0]);
-    const secondFieldId = "#" + emptyFieldId.replace(emptyFieldId[1], rowsToCheck[1]);
-    console.log(firstFieldId + " - " + secondFieldId);
-    if (document.querySelector(firstFieldId).value !== "" && document.querySelector(secondFieldId).value !== "") {
-        result = true;
-    }
-    console.log(result);
-    return result;
-}
-
-
-
 
 function probeLonelyFieldforPairsInOtherElements(id, checkRow) {
     // abort this function if checkrow is not defined.
+    console.log(id);
     if (checkRow === undefined) {
         console.error("checkRow is not defined");
         return;
     }
-    //id = "#r9c4";
     const currentItemElement = document.querySelector(id);
     const rowNumber = id[2];
     const columnNumber = id[4];
@@ -96,10 +47,6 @@ function probeLonelyFieldforPairsInOtherElements(id, checkRow) {
     const currentItemRow = getRowArray(rowNumber);
     const currentItemColumn = getColumnArray(columnNumber);
     const currentItemBox = getBoxArray(boxNumber);
-
-    //console.log(currentItemElement.classList[0][3]);
-    //const currentItemBox = getBoxArray()
-
     const pairedRowsArray = getPairedElements(rowNumber);
     const pairedColumnsArray = getPairedElements(columnNumber);
 
@@ -129,52 +76,28 @@ function probeLonelyFieldforPairsInOtherElements(id, checkRow) {
     pairedRowsArray.forEach((row) => {
         const rowValues = getRowArray(row);
         pairedRowsValuesArray.push(rowValues);
-        // rowValues.forEach((rowValue) => {
-        //     pairedRowsValuesArray.push(rowValue.value);
-        // } )
     });
     console.log(pairedRowsValuesArray);
 
     if (checkRow === true) {
         allPossibleValues.forEach((value) => {
             console.log("Checking rows...");
-            //console.log(pairedRowsArray[0].length);
             for (let j = 0; j < pairedRowsValuesArray[0].length; j++) {
-                //console.log(pairedRowsValuesArray[0][j].value);
                 if (value == pairedRowsValuesArray[0][j].value) {
                     console.log("Match: " + pairedRowsValuesArray[0][j].value);
                     for (let k = 0; k < pairedRowsValuesArray[1].length; k++) {
                         if (value == pairedRowsValuesArray[0][j].value && value == pairedRowsValuesArray[1][k].value) {
                             console.log("Matched in both places: " + value);
-                            // add this value to this field.
                             fillNumber(id, value);
                         }
                     }
                 }
-                //console.log("Something: " +j);
             }
         });
     } else {
         console.log("Checking columns...");
         allPossibleValues.forEach((value) => {
-            //console.log("Test");
-            //console.log(pairedRowsArray[0].length);
-            // for (let j = 0; j < pairedRowsValuesArray[0].length; j++) {
-            //     //console.log(pairedRowsValuesArray[0][j].value);
-            //     if (value == pairedRowsValuesArray[0][j].value) {
-            //         console.log("Match: " + pairedRowsValuesArray[0][j].value);
-            //         for (let k = 0; k < pairedRowsValuesArray[1].length; k++) {
-            //             if (value == pairedRowsValuesArray[0][j].value && value == pairedRowsValuesArray[1][k].value) {
-            //                 console.log("Matched in both places: " + value);
-            //                 // add this value to this field.
-            //             }
-            //         }
-            //     }
-            //     //console.log("Something: " +j);
-            // }
-            //Check paired columns:
             for (let s = 0; s < pairedColumnsValuesArray[0].length; s++) {
-                //console.log(pairedRowsValuesArray[0][j].value);
                 if (value == pairedColumnsValuesArray[0][s].value) {
                     console.log("Match: " + pairedColumnsValuesArray[0][s].value);
                     for (let t = 0; t < pairedColumnsValuesArray[1].length; t++) {
@@ -185,14 +108,9 @@ function probeLonelyFieldforPairsInOtherElements(id, checkRow) {
                         }
                     }
                 }
-                //console.log("Something: " +j);
             }
         });
     }
-
-    // ONLY ROW IS TESTED OK. COLUMN also gives a match, Must be checked!
-
-    // Check paired columns:
 }
 
 function onlyUnique(value, index, self) {
@@ -275,4 +193,46 @@ function getPairedElements(elementnumber) {
             break;
     }
     return pairs;
+}
+
+function isFieldAloneInBoxRowOrColumn(id, isRow) {
+    // Make sure the call has defined what to check.
+    if (isRow === undefined) {
+        console.error("iskRow is not defined");
+        return;
+    }
+    console.log("#" + id.id);
+    let result = false;
+    const emptyFieldId = id.id;
+    let firstFieldId;
+    let secondFieldId;
+    if (isRow === true) {
+        const currentColumnIndex = id.id[3];
+        const columnsToCheck = getPairedElements(currentColumnIndex);
+        firstFieldId = "#" + emptyFieldId.slice(0, -1) + columnsToCheck[0];
+        secondFieldId = "#" + emptyFieldId.slice(0, -1) + columnsToCheck[1];
+    } else {
+        const currentRowIndex = id.id[1];
+        const rowsToCheck = getPairedElements(currentRowIndex);
+        firstFieldId = "#" + emptyFieldId.replace(emptyFieldId[1], rowsToCheck[0]);
+        secondFieldId = "#" + emptyFieldId.replace(emptyFieldId[1], rowsToCheck[1]);
+    }
+    if (document.querySelector(firstFieldId).value !== "" && document.querySelector(secondFieldId).value !== "") {
+        result = true;
+    }
+    return result;
+}
+
+function findLonelyValueInRowOrColumn() {
+    const fieldsToCheck = getAllFieldsWithNoValue();
+    console.log("Length: " + fieldsToCheck.length);
+    findLonelyValueInRow();
+    findLonelyValueInColumn();
+    const emptyFieldsAfterRun = getAllFieldsWithNoValue();
+    if (emptyFieldsAfterRun.length < fieldsToCheck.length) {
+        console.log("Something changed.");
+        return true;
+    } else {
+        return false;
+    }
 }

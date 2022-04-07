@@ -138,6 +138,9 @@ function solveFunction() {
         shouldRecheck = false;
         // check for only option (all alternatives), function returns true if things are changed;
         shouldRecheck = checkForOnlyOption();
+        if (shouldRecheck === false) {
+            shouldRecheck = findLonelyValueInRowOrColumn();
+        }
         // Add other checks here, but make sure a false don`t override a previous true for recheck.
     }
     shouldRecheck = true;
@@ -164,4 +167,4 @@ function startGame(arr) {
 }
 startGame(filledNumbersArray);
 
-probeLonelyFieldforPairsInOtherElements()
+//probeLonelyFieldforPairsInOtherElements()

@@ -96,10 +96,7 @@ function findEmptyFields(unSortedArr) {
     return emptyFields;
 }
 
-
 /// incomplete below:
-
-
 
 function probeLonelyFieldforPairsInOtherElements(id) {
     id = "#r9c4";
@@ -107,9 +104,7 @@ function probeLonelyFieldforPairsInOtherElements(id) {
     const columnNumber = id[4];
     const currentItemRow = getRowArray(rowNumber);
     const currentItemColumn = getColumnArray(columnNumber);
-    
-    
-    
+
     const pairedRowsArray = getPairedElements(rowNumber);
     const pairedColumnsArray = getPairedElements(columnNumber);
 
@@ -143,4 +138,31 @@ function probeLonelyFieldforPairsInOtherElements(id) {
     //console.log(possibleValues);
 
     // Get missing values for the current field:
+}
+
+function isFieldAloneInBoxRow(id) {
+    let result = false;
+    const currentColumnIndex = id.id[3];
+    const emptyFieldId = id.id;
+    const columnsToCheck = getPairedElements(currentColumnIndex);
+    const firstFieldId = "#" + emptyFieldId.slice(0, -1) + columnsToCheck[0];
+    const secondFieldId = "#" + emptyFieldId.slice(0, -1) + columnsToCheck[1];
+    if (document.querySelector(firstFieldId).value !== "" && document.querySelector(secondFieldId).value !== "") {
+        result = true;
+    }
+    return result;
+}
+
+function isFieldAloneInBoxColumn(id) {
+    let result = false;
+    const currentRowIndex = id.id[1];
+    const emptyFieldId = id.id;
+    const rowsToCheck = getPairedElements(currentRowIndex);
+    const firstFieldId = "#" + emptyFieldId.replace(emptyFieldId[1], rowsToCheck[0]);
+    const secondFieldId = "#" + emptyFieldId.replace(emptyFieldId[1], rowsToCheck[1]);
+    console.log(firstFieldId + " - " + secondFieldId);
+    if (document.querySelector(firstFieldId).value !== "" && document.querySelector(secondFieldId).value !== "") {
+        result = true;
+    }
+    return result;
 }
