@@ -31,7 +31,7 @@ const saveTableButton = document.querySelector(".controls .savetable");
 const rotateButton = document.querySelector(".controls .rotate");
 const modifyTableButton = document.querySelector(".controls .modifytable");
 const helpButton = document.querySelector(".controls .help");
-
+const resetButton = document.querySelector(".controls .reset");
 const statusWindow = document.querySelector(".status");
 const statusMessage = document.querySelector(".status .message");
 const allInputs = document.querySelectorAll(".gametable__box__table input");

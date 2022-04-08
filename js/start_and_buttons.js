@@ -168,3 +168,20 @@ function startGame(arr) {
 startGame(filledNumbersArray);
 
 //probeLonelyFieldforPairsInOtherElements()
+
+function resetCurrentTable() {
+    const allFields = document.querySelectorAll(".gametable input:not([disabled])");
+    allFields.forEach((field) => {
+        field.value = "";
+        field.classList.remove("wrong");
+        field.classList.remove("success");
+    });
+}
+
+console.log("Test");
+
+const Arr = [0, 1, 2, 3, 4, 5, 6, 7, 8];
+
+for (let i = 0; i < Arr.length; i++) {
+    console.log(Arr[i]);
+}
